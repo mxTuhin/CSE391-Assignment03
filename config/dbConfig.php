@@ -8,5 +8,6 @@ $password = "012Dark345";		    //Set database password
 
 // Create connection
 $db = new mysqli($server_address, $username, $password, $database_name);
+error_reporting(0);
 ?>
 

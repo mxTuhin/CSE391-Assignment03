@@ -32,7 +32,22 @@ include "config/dbConfig.php"
         <a href="#" class="nav-links">User</a>
       </li>
         <li>
-            <a href="#" class="nav-links">Admin</a>
+            <?php
+            $session = $_SESSION['logged_in'];
+            if($session){
+                ?>
+                <a href="logout.php" class="nav-links">Logout</a>
+
+            <?php
+            }else{
+                ?>
+                <a href="admin" class="nav-links">Admin</a>
+            <?php
+
+            }
+
+            ?>
+
         </li>
 
       <li style="font-size:16px">

@@ -53,7 +53,7 @@ include "layout.php";
                     }
                     ?>
                 </select>
-                <button class="button button3" type="button">Submit</button><br>
+                <button onclick="book()" class="button button3" type="button">Submit</button><br>
                 <span class="notifier" id="request" style="color: #80cbc4">Processing Request..</span><br>
                 <span class="notifier" id="success" style="color: #aed581">Booking Successful..</span><br>
                 <span class="notifier" id="failed" style="color: #DA0037">Booking Failed..</span><br>
@@ -69,5 +69,47 @@ include "layout.php";
 <div class="footer">
     <p>2021 | CMS Panel | MechaBook</p>
 </div>
+
+<script>
+    function book(){
+        var name=document.getElementById("name");
+        var address=document.getElementById("address");
+        var cellnum = document.getElementById("cellnum");
+        var license = document.getElementById("license");
+        var engine=document.getElementById("engine");
+        var appointment=document.getElementById("appointment");
+        var mechanic=document.getElementById("mechanic");
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onload = function() {
+            document.getElementById("success").style.display = "none";
+            document.getElementById("failed").style.display = "none";
+            document.getElementById("msg").style.display = "none";
+
+            document.getElementById("msg").style.display = "block";
+            var data= JSON.parse(this.responseText)
+            if(data.error){
+                document.getElementById("failed").style.display = "block";
+            }else{
+                document.getElementById("success").style.display = "block";
+            }
+            document.getElementById("msg").innerText = data.msg;
+
+            // console.log(this.responseText);
+        }
+        var url="name="+name.value+"&address="+address.value+"&cellnum="+cellnum.value+"&license="+license.value+"&engine="+engine.value+"&appointment="+appointment.value+"&mechanic="+mechanic.value;
+            console.log(url);
+        xhttp.open("GET", "book.php?"+url);
+        xhttp.send();
+
+        name.value="";
+        address.value="";
+        cellnum.value="";
+        license.value="";
+        engine.value="";
+        appointment.value="";
+    }
+</script>
 </body>
 </html>
